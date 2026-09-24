@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F0EEE9">
+  <title>El Pinar | Club de Tenis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .intro-screen { perspective:1200px; background:#060010; }
+    .intro-screen::before { content:''; position:absolute; inset:-20%; opacity:.28; background:repeating-linear-gradient(90deg,transparent 0 9vw,rgba(240,238,233,.22) 9.05vw 9.1vw),repeating-linear-gradient(0deg,transparent 0 9vw,rgba(240,238,233,.16) 9.05vw 9.1vw); transform:rotateX(68deg) rotateZ(-18deg) translateY(22%); transform-origin:center bottom; box-shadow:0 -40px 100px rgba(255,190,140,.2); }
+    .intro-screen::after { content:''; position:absolute; width:140vw; height:70vh; left:-20vw; bottom:-38vh; opacity:.7; background:linear-gradient(105deg,rgba(240,238,233,.16),transparent 40%),repeating-linear-gradient(90deg,transparent 0 12vw,rgba(240,238,233,.12) 12.05vw 12.12vw); transform:rotateX(68deg) rotateZ(-12deg) translateZ(-130px); transform-origin:center bottom; box-shadow:0 -35px 110px rgba(10,4,3,.3); }
+    .intro-card { position:relative; z-index:3; width:min(90vw,520px); display:flex; flex-direction:column; align-items:center; pointer-events:auto; transform-style:preserve-3d; transform:rotateX(var(--intro-tilt-y,0deg)) rotateY(var(--intro-tilt-x,0deg)); transition:transform .9s cubic-bezier(.22,1,.36,1); }
+    .intro-logo { display:block; width:clamp(260px,35vw,470px); height:auto; margin:0 auto 2.8rem; overflow:visible; transform:translateZ(50px) rotateX(2deg); filter:drop-shadow(0 18px 0 rgba(45,19,14,.4)) drop-shadow(0 28px 28px rgba(20,10,5,.45)); animation:intro-logo-float 3.8s ease-in-out infinite alternate; transform-origin:center; }
+    @keyframes intro-logo-float { from { transform:translate3d(0,4px,50px) rotateX(2deg) rotateY(-1.5deg); } to { transform:translate3d(0,-9px,50px) rotateX(2deg) rotateY(1.5deg); } }
+    .intro-logo .logo-face { fill:#f0eee9; stroke:#f0eee9; stroke-width:2; stroke-linejoin:round; }
+    .intro-logo .logo-ball { fill:#f0c92e; stroke:#f0eee9; stroke-width:3; }
+    .intro-logo .logo-seam { fill:none; stroke:#be6942; stroke-width:3; stroke-linecap:round; }
+    .intro-logo .logo-word { fill:#f0eee9; font:italic 500 31px Georgia,serif; letter-spacing:-2px; }
+    .intro-logo .logo-subtitle { fill:#f0eee9; font:500 9px Arial,sans-serif; letter-spacing:4px; }
+    .intro-loader { position:relative; z-index:2; width:min(72vw,390px); height:13px; margin:0 auto; overflow:visible; border:1px solid rgba(240,238,233,.5); border-radius:3px; background:linear-gradient(#341b16,#59291f); box-shadow:inset 0 4px 7px rgba(15,5,2,.42),0 12px 25px rgba(20,10,5,.32); transform:translateZ(28px) rotateX(18deg); transform-style:preserve-3d; }
+    .intro-loader::before { content:''; position:absolute; left:0; right:-8px; bottom:-8px; height:8px; background:#4a241c; transform:skewX(-45deg); transform-origin:left top; border-right:1px solid rgba(240,238,233,.35); }
+    .intro-loader::after { content:''; position:absolute; z-index:3; top:-14px; left:0; width:28px; height:28px; border:2px solid #f0eee9; border-radius:50%; background:radial-gradient(circle at 32% 25%,#fff7c9 0 9%,#e9d84c 10% 52%,#a99325 53% 100%); box-shadow:inset -5px -5px 7px rgba(74,62,10,.35),0 8px 14px rgba(20,10,5,.5); transform:translate(-50%,-50%) translateZ(32px); animation:intro-ball 2.95s cubic-bezier(.22,1,.36,1) both; }
+    .intro-loader span { position:absolute; z-index:1; inset:2px; width:100%; transform:scaleX(0); transform-origin:left; background:linear-gradient(90deg,#f0eee9,#e5a47d); box-shadow:0 0 14px rgba(240,238,233,.55); }
+    @keyframes intro-ball { from { left:0; transform:translate(-50%,-50%) translateZ(32px) rotate(0deg); } to { left:100%; transform:translate(-50%,-50%) translateZ(32px) rotate(1080deg); } }
+    .hero-light { position:absolute; inset:0; background:linear-gradient(90deg,rgba(8,14,9,.18),transparent 62%),linear-gradient(0deg,rgba(8,10,8,.16),transparent 58%); mix-blend-mode:multiply; }
+    .intro-logo { object-fit:contain; mix-blend-mode:multiply; }
+  </style>
+  <style>
+    :root { --mouse-x: 0; --mouse-y: 0; }
+    .intro-screen, .hero, .manifesto, .experience, .news-section, .tournaments, .booking { transform-style: preserve-3d; backface-visibility: hidden; }
+    .intro-screen { contain: layout paint; }
+    .intro-card, .intro-loader, .intro-logo { will-change: transform; }
+    .hero { perspective: 1400px; isolation: isolate; }
+    .hero-backdrop { will-change: transform; transform: translate3d(var(--depth-x,0px),var(--depth-y,0px),0) scale(1.01); filter: brightness(.84) saturate(.9) contrast(1.06); }
+    .hero-shade { z-index: 1; background: linear-gradient(90deg,rgba(8,14,9,.78),rgba(8,14,9,.18) 72%),linear-gradient(0deg,rgba(8,10,8,.58),transparent 58%); }
+    .hero-content { z-index: 3; transform: translate3d(calc(var(--mouse-x) * 10px), calc(var(--mouse-y) * 7px), 90px); transform-style: preserve-3d; will-change: transform; }
+    .hero-content h1 { text-shadow: 0 18px 34px rgba(0,0,0,.22); }
+    .hero-stamp { transform: translateZ(130px) rotate(-12deg); text-shadow: 0 12px 20px rgba(0,0,0,.24); }
+    .hero::after { content:''; position:absolute; z-index:2; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 45%,transparent 38%,rgba(0,0,0,.26) 100%); mix-blend-mode:multiply; }
+    .section-pad { position:relative; perspective:1200px; }
+    .manifesto::before, .experience::before, .news-section::before, .tournaments::before, .booking::after { content:''; position:absolute; z-index:0; pointer-events:none; opacity:.45; background:linear-gradient(120deg,rgba(255,255,255,.34),transparent 38%,rgba(25,26,23,.08)); transform:translate3d(var(--layer-x,0px),var(--layer-y,0px),-90px) rotateX(58deg) rotateZ(-8deg); transform-origin:center; will-change:transform; }
+    .manifesto::before, .experience::before, .news-section::before { inset:10% 7%; }
+    .tournaments::before { inset:8% 6%; background:linear-gradient(120deg,rgba(255,236,218,.22),transparent 45%,rgba(35,12,7,.22)); }
+    .booking::after { inset:0; background:radial-gradient(circle at calc(70% + var(--mouse-x) * 12%) calc(30% + var(--mouse-y) * 10%),rgba(229,164,125,.18),transparent 24%); transform:none; }
+    .manifesto > *, .experience > *, .news-section > *, .tournaments > *, .booking > * { position:relative; z-index:1; }
+    .manifesto-copy, .experience-copy, .section-heading, .tournament-head, .booking h2, .booking .section-label, .booking > p, .booking .button-light { transform:translateZ(60px); transform-style:preserve-3d; }
+    .image-frame, .news-card { transform-style:preserve-3d; transition:transform .8s cubic-bezier(.22,1,.36,1),box-shadow .8s ease; will-change:transform; }
+    .image-frame:hover, .news-card:hover { transform:translate3d(0,-8px,45px) rotateX(1deg) rotateY(-1deg); box-shadow:18px 28px 48px rgba(25,26,23,.16); }
+    .image-frame::before { content:''; position:absolute; z-index:2; inset:0; pointer-events:none; background:linear-gradient(115deg,rgba(255,255,255,.16),transparent 30%,transparent 68%,rgba(25,26,23,.16)); mix-blend-mode:soft-light; }
+    .parallax-image { will-change:transform; filter:saturate(.92) contrast(1.04); }
+    .feature-list > div, .tournament-row { transform:translateZ(20px); transition:transform .45s cubic-bezier(.22,1,.36,1),background-color .3s ease,padding .3s ease; }
+    .feature-list > div:hover { transform:translate3d(8px,-3px,22px); background:rgba(255,255,255,.2); }
+    .booking { perspective:1000px; }
+    .booking-shape { transform:translate3d(var(--shape-x,0px),var(--shape-y,0px),30px) rotateX(58deg) rotateY(-12deg); transition:transform .9s cubic-bezier(.22,1,.36,1); }
+    @media (prefers-reduced-motion: reduce) { .hero-backdrop,.hero-content,.manifesto::before,.experience::before,.news-section::before,.tournaments::before,.booking-shape { transform:none!important; } .image-frame:hover,.news-card:hover { transform:none; } }
+  </style>
+</head>
+<body>
+  <div class="intro-screen" id="introScreen" aria-label="Bienvenida a El Pinar"><div class="drift-wall" id="driftWall" aria-hidden="true"></div><div class="drift-shade"></div><div class="intro-card"><button class="intro-start" id="introStart" type="button">INICIAR</button></div></div>
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#inicio" aria-label="El Pinar, inicio"><img class="brand-logo" src="logo2.png" alt="El Pinar"></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+    <nav class="main-nav jelly-radio" id="mainNav" aria-label="Navegación principal"><a class="jelly-chip is-active" aria-current="page" href="#nosotros">Nosotros</a><a class="jelly-chip" href="#info">Info</a><a class="jelly-chip" href="#noticias">Noticias</a><a class="jelly-chip" href="#torneos">Torneos</a><a class="jelly-chip nav-cta" href="#turnos">Agendar turno <span>↗</span></a></nav>
+  </header>
+  <main>
+    <section class="hero" id="inicio"><div class="hero-backdrop parallax-layer"></div><div class="hero-shade"></div><div class="hero-content"><h1>CLUB<br>EL PINAR</h1></div></section>
+    <section class="nosotros section-pad" id="nosotros"><div class="nosotros-heading"><p class="section-label mono">01 / Nosotros</p><h2>Un club para<br><em>quedarse.</em></h2><p class="body-copy">Tres formas de vivir El Pinar: la cancha, el paisaje y todo lo que sucede alrededor.</p></div><div class="depth-carousel" aria-label="Galería de El Pinar"><div class="depth-carousel__stage"><figure class="depth-card is-center"><img src="imagen1.jpg" alt="Detalle de la superficie de arcilla" loading="lazy"><figcaption>La cancha</figcaption></figure><figure class="depth-card is-right"><img src="imagen2.jpg" alt="Cancha de tenis rodeada de árboles" loading="lazy"><figcaption>El paisaje</figcaption></figure><figure class="depth-card is-left"><img src="imagen3.jpg" alt="Pelota de tenis sobre arcilla" loading="lazy"><figcaption>El ritual</figcaption></figure></div><div class="depth-carousel__controls"><button class="depth-arrow" type="button" data-carousel-prev aria-label="Foto anterior">←</button><span class="depth-counter mono" aria-live="polite">01 / 03</span><button class="depth-arrow" type="button" data-carousel-next aria-label="Foto siguiente">→</button></div></div></section>
+    <section class="experience section-pad" id="info"><div class="experience-image image-frame parallax-wrap"><img class="parallax-image" src="imagen1.jpg" alt="Detalle de la superficie de arcilla y las líneas de la cancha" loading="lazy"></div><div class="experience-copy reveal-up"><p class="section-label mono">03 / La experiencia</p><h2>La arcilla<br><em>se siente.</em></h2><div class="feature-list"><div><span>01</span><p>Turnos flexibles<br><small>De lunes a domingo</small></p></div><div><span>02</span><p>Clases personalizadas<br><small>Para todos los niveles</small></p></div><div><span>03</span><p>Club house<br><small>El tercer tiempo empieza acá</small></p></div></div></div></section>
+    <section class="news-section section-pad" id="noticias"><div class="section-heading reveal-up"><p class="section-label mono">04 / Novedades</p><h2>Desde<br><em>el club.</em></h2><a class="text-link news-open-trigger" href="#noticias">Ver todas las noticias <span>↗</span></a></div><div class="news-carousel reveal-up" aria-label="Carrusel de noticias"><div class="news-carousel__stage"><article class="news-card is-active" data-news-id="ritual" data-relevant="true" tabindex="0" role="button"><img src="imagen3.jpg" alt="Pelota de tenis sobre arcilla" loading="lazy"><span class="news-relevance">Relevante</span><div class="news-card__overlay"><p class="mono news-card__meta">18.09.24 / Comunidad</p><h3>El ritual de cada<br>partido empieza antes.</h3></div></article><article class="news-card" data-news-id="identidad" data-relevant="false" tabindex="0" role="button"><img src="logo.png" alt="Logo vectorial de El Pinar" loading="lazy"><div class="news-card__overlay"><p class="mono news-card__meta">12.09.24 / Club</p><h3>Una identidad<br>con raíces.</h3></div></article></div><div class="news-carousel__controls"><button class="depth-arrow" type="button" data-news-prev aria-label="Noticia anterior">←</button><span class="depth-counter mono" data-news-counter aria-live="polite">01 / 02</span><button class="depth-arrow" type="button" data-news-next aria-label="Noticia siguiente">→</button></div></div></section>
+    <section class="tournaments section-pad" id="torneos"><div class="tournament-head"><p class="section-label mono">05 / Competencia</p><h2>Torneos que<br><em>dejan marca.</em></h2><p class="body-copy">La energía de competir, el respeto por el juego y una mesa compartida al final.</p></div><div class="tournament-table"><div class="tournament-row tournament-row--head mono"><span>Fecha</span><span>Nombre</span><span>Modalidad</span><span></span></div><a class="tournament-row" href="#turnos"><span class="mono">05 OCT</span><strong>Copa El Pinar</strong><span>Dobles mixtos</span><b>↗</b></a><a class="tournament-row" href="#turnos"><span class="mono">19 OCT</span><strong>Interclubes Primavera</strong><span>Equipos</span><b>↗</b></a><a class="tournament-row" href="#turnos"><span class="mono">02 NOV</span><strong>Open El Pinar</strong><span>Singles</span><b>↗</b></a></div></section>
+    <section class="booking" id="turnos"><div class="booking-shape"></div><p class="section-label mono">06 / Reservas</p><h2>Tu próxima<br><em>cancha te espera.</em></h2><p>Elegí tu horario y dejá que el partido haga el resto.</p><a class="button-light" href="https://wa.me/5491100000000" target="_blank" rel="noreferrer">Agendar un turno <span>↗</span></a></section>
+  </main>
+  <div class="news-modal" id="newsModal" hidden><div class="news-modal__backdrop" data-news-close></div><section class="news-modal__panel" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle"><button class="news-modal__close" type="button" aria-label="Cerrar noticias" data-news-close>×</button><p class="section-label mono">Archivo del club</p><h2 id="newsModalTitle">Todas las<br><em>noticias.</em></h2><div class="news-modal__carousel" id="newsModalCarousel"><div class="news-modal__track" id="newsModalTrack"></div><div class="news-carousel__controls"><button class="depth-arrow" type="button" data-modal-prev aria-label="Noticia anterior">←</button><span class="depth-counter mono" data-modal-counter aria-live="polite">01 / 02</span><button class="depth-arrow" type="button" data-modal-next aria-label="Noticia siguiente">→</button></div></div></section></div>
+  <footer class="site-footer"><div class="brand-name">El Pinar <small>Club de Tenis</small></div><p class="mono">Av. de los Ombúes 1987 / Buenos Aires</p><p>© 2024 El Pinar</p></footer><a class="whatsapp" href="https://wa.me/5491100000000" target="_blank" rel="noreferrer" aria-label="Contactar a El Pinar por WhatsApp"><svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M8.8 8.5c.25-.42.55-.45.82-.45h.46c.2 0 .4.08.5.35l.62 1.48c.1.24.08.43-.08.63l-.48.6c-.12.15-.14.3-.04.48.36.64 1.05 1.3 1.88 1.7.2.1.34.08.47-.08l.57-.68c.14-.17.35-.22.57-.12l1.45.68c.24.11.35.23.33.47-.07.78-.4 1.2-.86 1.4-.45.2-1.06.2-1.72-.02-1.02-.33-2.2-1.08-3.1-1.98-.9-.9-1.65-2.08-1.98-3.1-.22-.66-.22-1.27-.02-1.72.2-.46.62-.79 1.4-.86Z" fill="currentColor"></path></svg></a>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><script src="script.js"></script>
+</body>
+</html>
