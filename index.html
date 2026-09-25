@@ -35,11 +35,11 @@
     .intro-screen { contain: layout paint; }
     .intro-card, .intro-loader, .intro-logo { will-change: transform; }
     .hero { perspective: 1400px; isolation: isolate; }
-    .hero-backdrop { will-change: transform, scale; transform: translate3d(var(--depth-x,0px),var(--depth-y,0px),0); scale: 1.012; animation: hero-image-zoom 20s ease-in-out infinite alternate; filter: brightness(.84) saturate(.9) contrast(1.06); }
+    .hero-backdrop { will-change: transform, scale; transform: translate3d(var(--depth-x,0px),var(--depth-y,0px),0); scale: 1.012; animation: hero-image-zoom 20s ease-in-out infinite alternate; filter: brightness(1) saturate(1.05) contrast(1.03); }
     @keyframes hero-image-zoom { from { scale: 1.012; } to { scale: 1.038; } }
-    .hero-shade { z-index: 1; background: linear-gradient(90deg,rgba(8,14,9,.78),rgba(8,14,9,.18) 72%),linear-gradient(0deg,rgba(8,10,8,.58),transparent 58%); }
+    .hero-shade { z-index: 1; background: linear-gradient(90deg,rgba(8,14,9,.46),rgba(8,14,9,.08) 72%),linear-gradient(0deg,rgba(8,10,8,.34),transparent 58%); }
     .hero-content { z-index: 3; transform: translate3d(calc(var(--mouse-x) * 10px), calc(var(--mouse-y) * 7px), 90px); transform-style: preserve-3d; will-change: transform; }
-    .hero-content h1 { text-shadow: 0 18px 34px rgba(0,0,0,.22); }
+    .hero-content h1 { text-shadow: 0 3px 10px rgba(0,0,0,.24); -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
     .hero-stamp { transform: translateZ(130px) rotate(-12deg); text-shadow: 0 12px 20px rgba(0,0,0,.24); }
     .hero::after { content:''; position:absolute; z-index:2; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 45%,transparent 38%,rgba(0,0,0,.26) 100%); mix-blend-mode:multiply; }
     .section-pad { position:relative; perspective:1200px; }
