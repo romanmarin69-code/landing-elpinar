@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const driftWall = document.querySelector('#driftWall');
   const driftImages = ['imagen1.jpg', 'imagen2.jpg', 'imagen3.jpg'];
+  const tileSetSize = 8;
   for (let columnIndex = 0; columnIndex < 5; columnIndex += 1) {
     const column = document.createElement('div');
     column.className = 'drift-column';
-    for (let tileIndex = 0; tileIndex < 6; tileIndex += 1) {
+    for (let tileIndex = 0; tileIndex < tileSetSize * 2; tileIndex += 1) {
       const tile = document.createElement('figure');
       tile.className = 'drift-tile';
       const image = document.createElement('img');
@@ -26,8 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
     driftWall.append(column);
     const movesUp = columnIndex % 2 === 0;
     const speedVariance = [1, .82, 1.18, .9, 1.1][columnIndex];
-    if (hasGsap) {
-      const driftTween = gsap.fromTo(column, { yPercent: movesUp ? 0 : -50 }, { yPercent: movesUp ? -50 : 0, duration: 42 / speedVariance, ease: 'none', repeat: -1, delay: columnIndex * -.8, force3D: true });
+    if (hasGsap && !prefersReducedMotion) {
+      const cycleHeight = column.children[tileSetSize].offsetTop;
+      const driftTween = gsap.fromTo(column, { y: movesUp ? 0 : -cycleHeight }, { y: movesUp ? -cycleHeight : 0, duration: 42 / speedVariance, ease: 'none', repeat: -1, delay: columnIndex * -.8, force3D: true });
       column.addEventListener('mouseenter', () => driftTween.pause());
       column.addEventListener('mouseleave', () => driftTween.play());
     }
@@ -130,7 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
           card.setAttribute('role', 'button');
           card.tabIndex = isPrimary ? 0 : -1;
           if (!isPrimary) card.setAttribute('aria-hidden', 'true');
-          card.innerHTML = `<img src="${news.image}" alt="${isPrimary ? news.alt : ''}" loading="lazy"><div class="news-card__overlay"><p class="mono news-card__meta">${news.meta}</p><h3>${news.titleHtml}</h3></div>`;
+          const [metaDate, metaCategory] = news.meta.split(' / ');
+          card.innerHTML = `<div class="news-modal__media"><img src="${news.image}" alt="${isPrimary ? news.alt : ''}" loading="lazy"></div><div class="news-card__overlay"><p class="mono news-card__meta">${metaDate}</p><p class="news-card__subtitle">${metaCategory}</p><h3>${news.titleHtml}</h3><p class="news-card__copy">${news.copy}</p></div>`;
           modalTrack.append(card);
         });
       }
@@ -177,16 +180,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (hasGsap) {
         const vw = document.documentElement.clientWidth;
         const vh = document.documentElement.clientHeight;
+        const isMobile = vw <= 700;
         const margin = 24;
         const targetHeight = Math.min(vh - margin * 2, 680);
         const targetWidth = Math.min(vw - margin * 2, 920);
         const finalTop = (vh - targetHeight) / 2;
         const finalLeft = (vw - targetWidth) / 2;
-        const mediaMarginPx = parseFloat(getComputedStyle(expandMediaBox).marginTop) || 0;
-        const mediaHeight = Math.max(0, targetHeight - mediaMarginPx * 2);
-        const mediaWidth = mediaHeight * 9 / 16;
+        const mediaMarginPx = isMobile ? 0 : parseFloat(getComputedStyle(expandMediaBox).marginTop) || 0;
+        const mediaHeight = isMobile ? Math.min(vh * .36, 280) : Math.max(0, targetHeight - mediaMarginPx * 2);
+        const mediaWidth = isMobile ? targetWidth : mediaHeight * 9 / 16;
         gsap.set(expandCard, { top: rect.top, left: rect.left, width: rect.width, height: rect.height, borderRadius: 22 });
-        gsap.set(expandMediaBox, { width: mediaWidth, height: mediaHeight });
+        gsap.set(expandMediaBox, { width: mediaWidth, height: mediaHeight, margin: isMobile ? 0 : undefined });
         gsap.set(expandBody, { opacity: 0, y: 16 });
         gsap.set(expandBackdrop, { opacity: 0 });
         gsap.to(expandCard, { top: finalTop, left: finalLeft, width: targetWidth, height: targetHeight, borderRadius: 26, duration: .55, ease: 'power3.inOut' });
