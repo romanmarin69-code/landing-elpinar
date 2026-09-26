@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const driftWall = document.querySelector('#driftWall');
   const driftImages = ['imagen1.jpg', 'imagen2.jpg', 'imagen3.jpg'];
   const tileSetSize = 8;
-  for (let columnIndex = 0; columnIndex < 5; columnIndex += 1) {
+  const columnWidth = window.innerWidth <= 700 ? window.innerWidth * .3 : 200;
+  const columnCount = Math.ceil(window.innerWidth / columnWidth) + 4;
+  const speedVariances = [1, .82, 1.18, .9, 1.1];
+  for (let columnIndex = 0; columnIndex < columnCount; columnIndex += 1) {
     const column = document.createElement('div');
     column.className = 'drift-column';
     for (let tileIndex = 0; tileIndex < tileSetSize * 2; tileIndex += 1) {
@@ -26,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     driftWall.append(column);
     const movesUp = columnIndex % 2 === 0;
-    const speedVariance = [1, .82, 1.18, .9, 1.1][columnIndex];
+    const speedVariance = speedVariances[columnIndex % speedVariances.length];
     if (hasGsap && !prefersReducedMotion) {
       const cycleHeight = column.children[tileSetSize].offsetTop;
       const driftTween = gsap.fromTo(column, { y: movesUp ? 0 : -cycleHeight }, { y: movesUp ? -cycleHeight : 0, duration: 42 / speedVariance, ease: 'none', repeat: -1, delay: columnIndex * -.8, force3D: true });

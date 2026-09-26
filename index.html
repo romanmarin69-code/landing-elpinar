@@ -35,8 +35,8 @@
     .intro-screen { contain: layout paint; }
     .intro-card, .intro-loader, .intro-logo { will-change: transform; }
     .hero { perspective: 1400px; isolation: isolate; }
-    .hero-backdrop { will-change: transform, scale; transform: translate3d(var(--depth-x,0px),var(--depth-y,0px),0); scale: 1.012; animation: hero-image-zoom 20s ease-in-out infinite alternate; filter: brightness(1) saturate(1.05) contrast(1.03); }
-    @keyframes hero-image-zoom { from { scale: 1.012; } to { scale: 1.038; } }
+    .hero-backdrop { will-change: transform, scale; transform: translate3d(var(--depth-x,0px),var(--depth-y,0px),0); scale: 1.04; animation: hero-image-zoom 18s ease-in-out infinite alternate; filter: brightness(1) saturate(1.05) contrast(1.03); }
+    @keyframes hero-image-zoom { from { scale: 1.04; } to { scale: 1.14; } }
     .hero-shade { z-index: 1; background: linear-gradient(90deg,rgba(8,14,9,.46),rgba(8,14,9,.08) 72%),linear-gradient(0deg,rgba(8,10,8,.34),transparent 58%); }
     .hero-content { z-index: 3; transform: translate3d(calc(var(--mouse-x) * 10px), calc(var(--mouse-y) * 7px), 90px); transform-style: preserve-3d; will-change: transform; }
     .hero-content h1 { text-shadow: 0 3px 10px rgba(0,0,0,.24); -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
@@ -57,7 +57,7 @@
     .feature-list > div:hover { transform:translate3d(8px,-3px,22px); background:rgba(255,255,255,.2); }
     .booking { perspective:1000px; }
     .booking-shape { transform:translate3d(var(--shape-x,0px),var(--shape-y,0px),30px) rotateX(58deg) rotateY(-12deg); transition:transform .9s cubic-bezier(.22,1,.36,1); }
-    @media (prefers-reduced-motion: reduce) { .hero-backdrop,.hero-content,.manifesto::before,.experience::before,.news-section::before,.tournaments::before,.booking-shape { transform:none!important; } .hero-backdrop { animation:none; scale: 1.012; } .image-frame:hover,.news-card:hover { transform:none; } }
+    @media (prefers-reduced-motion: reduce) { .hero-backdrop,.hero-content,.manifesto::before,.experience::before,.news-section::before,.tournaments::before,.booking-shape { transform:none!important; } .hero-backdrop { animation:none; scale: 1.04; } .image-frame:hover,.news-card:hover { transform:none; } }
   </style>
 </head>
 <body>
