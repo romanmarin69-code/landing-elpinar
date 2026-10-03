@@ -4,7 +4,8 @@
   const canvas = document.getElementById('ballSprite');
   if (!canvas) return;
 
-  const FRAME_COUNT = 5;
+  const FRAME_FILES = ['frames/frame-2.png', 'frames/frame-3.png', 'frames/frame-4.png', 'frames/frame-5.png'];
+  const FRAME_COUNT = FRAME_FILES.length;
   const frames = [];
   let loaded = 0;
   let current = -1;
@@ -38,9 +39,9 @@
     ctx.globalAlpha = 1;
   }
 
-  for (let i = 1; i <= FRAME_COUNT; i += 1) {
+  FRAME_FILES.forEach((src) => {
     const img = new Image();
-    img.src = 'frames/frame-' + i + '.png';
+    img.src = src;
     img.onload = () => {
       loaded += 1;
       if (loaded === FRAME_COUNT) {
@@ -49,7 +50,7 @@
       }
     };
     frames.push(img);
-  }
+  });
 
   window.ballSprite = {
     progress: 0,
