@@ -71,7 +71,7 @@
       <div class="court-ground"></div>
       <div class="court-lines" aria-hidden="true"></div>
       <figure class="court-ball" aria-hidden="true">
-        <img class="court-ball__img" src="pelota.png" alt="">
+        <canvas class="court-ball__canvas" id="ballSprite"></canvas>
         <span class="court-ball__shadow"></span>
       </figure>
       <div class="court-copy">
@@ -86,14 +86,14 @@
       .court-ground::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 92% 64% at 50% 46%,transparent 28%,rgba(14,7,4,.68) 100%); }
       .court-lines { position:absolute; inset:0; pointer-events:none; opacity:.45; background:linear-gradient(0deg,transparent 64%,rgba(240,238,233,.3) 64.2%,rgba(240,238,233,.3) 64.6%,transparent 65%),linear-gradient(0deg,transparent 79%,rgba(240,238,233,.2) 79.2%,rgba(240,238,233,.2) 79.5%,transparent 80%); mask-image:linear-gradient(180deg,transparent 20%,#000 62%); -webkit-mask-image:linear-gradient(180deg,transparent 20%,#000 62%); }
       .court-ball { position:sticky; top:0; height:100vh; margin:0; margin-top:-100vh; display:grid; place-items:center; pointer-events:none; z-index:2; }
-      .court-ball__img { width:clamp(300px,46vmin,560px); height:auto; display:block; filter:contrast(1.04) saturate(1.02) drop-shadow(0 40px 70px rgba(0,0,0,.55)); will-change:transform; }
+      .court-ball__canvas { width:clamp(300px,46vmin,560px); height:clamp(300px,46vmin,560px); display:block; filter:drop-shadow(0 40px 70px rgba(0,0,0,.55)); will-change:transform; }
       .court-ball__shadow { position:absolute; left:50%; bottom:11vh; width:min(340px,36vw); height:34px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(ellipse,rgba(4,2,0,.75) 0%,transparent 60%); filter:blur(8px); will-change:transform,opacity; }
       .court-copy { position:absolute; z-index:3; left:8vw; top:13vh; max-width:480px; }
       .court-copy h2 { margin:0; font:800 clamp(2.8rem,6vw,5.6rem)/.9 var(--sans); letter-spacing:-.06em; text-wrap:balance; text-shadow:0 4px 18px rgba(8,4,0,.45); }
       .court-copy .section-label { color:#e5a47d; }
       .court-hint { position:absolute; z-index:3; right:8vw; bottom:5vh; color:rgba(240,238,233,.5); animation:court-hint 2.2s var(--ease-out) infinite alternate; }
       @keyframes court-hint { from { transform:translateY(0); opacity:.45; } to { transform:translateY(8px); opacity:.85; } }
-      @media (max-width:700px) { .court { min-height:180vh; } .court-copy { top:11vh; } .court-ball__img { width:min(74vw,360px); } .court-ball__shadow { bottom:9vh; } }
+      @media (max-width:700px) { .court { min-height:180vh; } .court-copy { top:11vh; } .court-ball__canvas { width:min(74vw,360px); height:min(74vw,360px); } .court-ball__shadow { bottom:9vh; } }
       @media (prefers-reduced-motion:reduce) { .court { min-height:100vh; } .court-hint { animation:none; } .court-ball,.court-ground { position:relative; margin-top:0; } }
     </style>
     <section class="nosotros section-pad" id="nosotros"><div class="nosotros-heading"><p class="section-label mono">01 / Nosotros</p><h2>Un club para<br><em>quedarse.</em></h2><p class="body-copy">Tres formas de vivir El Pinar: la cancha, el paisaje y todo lo que sucede alrededor.</p></div><div class="depth-carousel" aria-label="Galería de El Pinar"><div class="depth-carousel__stage"><figure class="depth-card is-center"><img src="imagen1.jpg" alt="Detalle de la superficie de arcilla" loading="lazy"><figcaption>La cancha</figcaption></figure><figure class="depth-card is-right"><img src="imagen2.jpg" alt="Cancha de tenis rodeada de árboles" loading="lazy"><figcaption>El paisaje</figcaption></figure><figure class="depth-card is-left"><img src="imagen3.jpg" alt="Pelota de tenis sobre arcilla" loading="lazy"><figcaption>El ritual</figcaption></figure></div><div class="depth-carousel__controls"><button class="depth-arrow" type="button" data-carousel-prev aria-label="Foto anterior">←</button><span class="depth-counter mono" aria-live="polite">01 / 03</span><button class="depth-arrow" type="button" data-carousel-next aria-label="Foto siguiente">→</button></div></div></section>
@@ -104,6 +104,6 @@
   </main>
   <div class="news-modal" id="newsModal" hidden><div class="news-modal__backdrop" data-news-close></div><section class="news-modal__panel" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle"><button class="news-modal__close" type="button" aria-label="Cerrar noticias" data-news-close>×</button><p class="section-label mono">Archivo del club</p><h2 id="newsModalTitle">Todas las<br><em>noticias.</em></h2><div class="news-modal__carousel" id="newsModalCarousel"><div class="news-modal__track" id="newsModalTrack"></div><div class="news-carousel__controls"><button class="depth-arrow" type="button" data-modal-prev aria-label="Noticia anterior">←</button><span class="depth-counter mono" data-modal-counter aria-live="polite">01 / 02</span><button class="depth-arrow" type="button" data-modal-next aria-label="Noticia siguiente">→</button></div></div></section></div>
   <footer class="site-footer"><div class="brand-name">El Pinar <small>Club de Tenis</small></div><p class="mono">Av. de los Ombúes 1987 / Buenos Aires</p><p>© 2024 El Pinar</p></footer><a class="whatsapp" href="https://wa.me/5491100000000" target="_blank" rel="noreferrer" aria-label="Contactar a El Pinar por WhatsApp"><svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M8.8 8.5c.25-.42.55-.45.82-.45h.46c.2 0 .4.08.5.35l.62 1.48c.1.24.08.43-.08.63l-.48.6c-.12.15-.14.3-.04.48.36.64 1.05 1.3 1.88 1.7.2.1.34.08.47-.08l.57-.68c.14-.17.35-.22.57-.12l1.45.68c.24.11.35.23.33.47-.07.78-.4 1.2-.86 1.4-.45.2-1.06.2-1.72-.02-1.02-.33-2.2-1.08-3.1-1.98-.9-.9-1.65-2.08-1.98-3.1-.22-.66-.22-1.27-.02-1.72.2-.46.62-.79 1.4-.86Z" fill="currentColor"></path></svg></a>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><script src="ball-sprite.js"></script><script src="script.js"></script>
 </body>
 </html>
