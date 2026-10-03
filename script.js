@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   introStart.addEventListener('click', () => {
     introStart.disabled = true;
     if (hasGsap) {
-      gsap.timeline({ onComplete: () => intro.remove() }).to('.intro-card', { opacity: 0, y: 10, duration: .35, ease: 'power2.in' }).to(intro, { autoAlpha: 0, duration: 1, ease: 'power2.out' });
+      gsap.timeline({ onComplete: () => intro.remove() }).to('.intro-card', { opacity: 0, y: 10, duration: .3, ease: 'power2.out' }).to(intro, { autoAlpha: 0, duration: .9, ease: 'power3.out' });
     } else {
       intro.style.transition = 'opacity .6s ease';
       intro.style.opacity = '0';
@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const image = wrap.querySelector('.parallax-image');
       gsap.fromTo(image, { yPercent: -13, scale: 1.12 }, { yPercent: 8, scale: 1.02, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.2 } });
     });
-    gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
-    gsap.utils.toArray('.experience-copy h2, .section-heading h2, .tournament-head h2, .booking h2').forEach((heading) => gsap.from(heading, { y: 55, rotateX: -8, clipPath: 'inset(0 0 100% 0)', opacity: 0, duration: 1.15, ease: 'power3.out', scrollTrigger: { trigger: heading, start: 'top 84%', once: true } }));
-    gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 35, rotateY: index % 2 ? 3 : -3, opacity: 0, duration: .75, delay: (index % 4) * .08, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 90%', once: true } }));
-    gsap.from('.hero-content > *', { y: 35, opacity: 0, stagger: .12, duration: 1, delay: 1.2, ease: 'power3.out' });
+    gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
+    gsap.utils.toArray('.experience-copy h2, .section-heading h2, .tournament-head h2, .booking h2').forEach((heading) => gsap.from(heading, { y: 55, rotateX: -8, clipPath: 'inset(0 0 100% 0)', opacity: 0, duration: 1.05, ease: 'expo.out', scrollTrigger: { trigger: heading, start: 'top 84%', once: true } }));
+    gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 35, rotateY: index % 2 ? 3 : -3, opacity: 0, duration: .7, delay: (index % 4) * .07, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 90%', once: true } }));
+    gsap.from('.hero-content > *', { y: 35, opacity: 0, stagger: .11, duration: .9, delay: 1.2, ease: 'expo.out' });
   }
 
   const carousel = document.querySelector('.depth-carousel');
@@ -196,9 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.set(expandMediaBox, { width: mediaWidth, height: mediaHeight, margin: isMobile ? 0 : undefined });
         gsap.set(expandBody, { opacity: 0, y: 16 });
         gsap.set(expandBackdrop, { opacity: 0 });
-        gsap.to(expandCard, { top: finalTop, left: finalLeft, width: targetWidth, height: targetHeight, borderRadius: 26, duration: .55, ease: 'power3.inOut' });
-        gsap.to(expandBackdrop, { opacity: 1, duration: .4 });
-        gsap.to(expandBody, { opacity: 1, y: 0, duration: .4, delay: .25 });
+        gsap.to(expandCard, { top: finalTop, left: finalLeft, width: targetWidth, height: targetHeight, borderRadius: 26, duration: .5, ease: 'expo.inOut' });
+        gsap.to(expandBackdrop, { opacity: 1, duration: .35, ease: 'power2.out' });
+        gsap.to(expandBody, { opacity: 1, y: 0, duration: .35, delay: .22, ease: 'power3.out' });
       } else {
         expandCard.style.top = '8vh';
         expandCard.style.left = '4vw';
@@ -212,10 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const sourceEl = expandSource;
       const rect = sourceEl.getBoundingClientRect();
       if (hasGsap) {
-        gsap.to(expandBody, { opacity: 0, y: 10, duration: .2 });
-        gsap.to(expandBackdrop, { opacity: 0, duration: .3 });
+        gsap.to(expandBody, { opacity: 0, y: 10, duration: .18, ease: 'power2.out' });
+        gsap.to(expandBackdrop, { opacity: 0, duration: .28, ease: 'power2.out' });
         gsap.to(expandCard, {
-          top: rect.top, left: rect.left, width: rect.width, height: rect.height, borderRadius: 0, duration: .45, ease: 'power3.inOut',
+          top: rect.top, left: rect.left, width: rect.width, height: rect.height, borderRadius: 0, duration: .42, ease: 'expo.inOut',
           onComplete: () => { newsExpand.classList.remove('is-active'); document.body.classList.remove('modal-open'); sourceEl.style.visibility = ''; expandSource = null; }
         });
       } else {
