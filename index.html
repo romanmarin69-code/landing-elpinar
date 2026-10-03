@@ -67,6 +67,37 @@
   </header>
   <main>
     <section class="hero" id="inicio"><div class="hero-backdrop parallax-layer"></div><div class="hero-shade"></div><div class="hero-content"><h1>CLUB<br>EL PINAR</h1></div></section>
+    <section class="court" id="cancha" aria-label="La cancha de El Pinar">
+      <div class="court-ground"></div>
+      <div class="court-lines" aria-hidden="true"></div>
+      <div class="tennis-ball" aria-hidden="true">
+        <div class="tennis-ball__sphere"><div class="tennis-ball__texture"></div></div>
+        <div class="tennis-ball__shadow"></div>
+      </div>
+      <div class="court-copy">
+        <p class="section-label mono">La cancha</p>
+        <h2>Donde la pelota<br><em>marca el ritmo.</em></h2>
+      </div>
+      <p class="court-hint mono" aria-hidden="true">Seguí scrolleando ↓</p>
+    </section>
+    <style>
+      .court { position:relative; min-height:210vh; color:var(--cloud); background:#241a15; overflow:hidden; }
+      .court-ground { position:sticky; top:0; height:100vh; background:linear-gradient(180deg,rgba(24,15,10,.88) 0%,rgba(36,22,14,.72) 42%,rgba(52,29,17,.6) 100%),url('imagen1.jpg') center 32%/cover; }
+      .court-ground::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 90% 62% at 50% 46%,transparent 30%,rgba(16,9,5,.66) 100%); }
+      .court-lines { position:absolute; inset:0; pointer-events:none; opacity:.5; background:linear-gradient(0deg,transparent 63%,rgba(240,238,233,.34) 63.2%,rgba(240,238,233,.34) 63.7%,transparent 64%),linear-gradient(0deg,transparent 78%,rgba(240,238,233,.22) 78.2%,rgba(240,238,233,.22) 78.6%,transparent 79%); mask-image:linear-gradient(180deg,transparent 18%,#000 60%); -webkit-mask-image:linear-gradient(180deg,transparent 18%,#000 60%); }
+      .tennis-ball { position:sticky; top:0; height:100vh; margin-top:-100vh; display:grid; place-items:center; pointer-events:none; z-index:2; }
+      .tennis-ball__sphere { position:relative; width:clamp(220px,30vw,420px); aspect-ratio:1; border-radius:50%; overflow:hidden; background:radial-gradient(circle at 34% 28%,#fdf6c8 0%,#e9d84c 30%,#c8b632 56%,#8f7f1d 82%,#5c520f 100%); box-shadow:inset -28px -38px 70px rgba(56,46,6,.62),inset 14px 18px 42px rgba(255,250,205,.5),0 60px 90px rgba(8,4,0,.55); will-change:transform; }
+      .tennis-ball__texture { position:absolute; inset:-12%; background:url('imagen3.jpg') 62% 30%/340% auto; mix-blend-mode:luminosity; opacity:.85; will-change:transform; }
+      .tennis-ball__sphere::before { content:''; position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 30% 24%,rgba(255,255,240,.45) 0%,transparent 22%); }
+      .tennis-ball__shadow { position:absolute; left:50%; bottom:12vh; width:38%; height:30px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(ellipse,rgba(5,2,0,.72) 0%,transparent 62%); filter:blur(7px); will-change:transform,opacity; }
+      .court-copy { position:absolute; z-index:3; left:8vw; top:14vh; max-width:460px; }
+      .court-copy h2 { margin:0; font:800 clamp(2.8rem,6vw,5.6rem)/.9 var(--sans); letter-spacing:-.06em; text-wrap:balance; text-shadow:0 4px 18px rgba(8,4,0,.4); }
+      .court-copy .section-label { color:#e5a47d; }
+      .court-hint { position:absolute; z-index:3; right:8vw; bottom:6vh; color:rgba(240,238,233,.55); animation:court-hint 2.2s var(--ease-out) infinite alternate; }
+      @keyframes court-hint { from { transform:translateY(0); opacity:.5; } to { transform:translateY(8px); opacity:.9; } }
+      @media (max-width:700px) { .court { min-height:170vh; } .court-copy { top:12vh; } .tennis-ball__sphere { width:min(56vw,300px); } }
+      @media (prefers-reduced-motion:reduce) { .court { min-height:100vh; } .court-hint { animation:none; } .tennis-ball,.court-ground { position:relative; margin-top:0; } }
+    </style>
     <section class="nosotros section-pad" id="nosotros"><div class="nosotros-heading"><p class="section-label mono">01 / Nosotros</p><h2>Un club para<br><em>quedarse.</em></h2><p class="body-copy">Tres formas de vivir El Pinar: la cancha, el paisaje y todo lo que sucede alrededor.</p></div><div class="depth-carousel" aria-label="Galería de El Pinar"><div class="depth-carousel__stage"><figure class="depth-card is-center"><img src="imagen1.jpg" alt="Detalle de la superficie de arcilla" loading="lazy"><figcaption>La cancha</figcaption></figure><figure class="depth-card is-right"><img src="imagen2.jpg" alt="Cancha de tenis rodeada de árboles" loading="lazy"><figcaption>El paisaje</figcaption></figure><figure class="depth-card is-left"><img src="imagen3.jpg" alt="Pelota de tenis sobre arcilla" loading="lazy"><figcaption>El ritual</figcaption></figure></div><div class="depth-carousel__controls"><button class="depth-arrow" type="button" data-carousel-prev aria-label="Foto anterior">←</button><span class="depth-counter mono" aria-live="polite">01 / 03</span><button class="depth-arrow" type="button" data-carousel-next aria-label="Foto siguiente">→</button></div></div></section>
     <section class="experience section-pad" id="info"><div class="experience-image image-frame parallax-wrap"><img class="parallax-image" src="imagen1.jpg" alt="Detalle de la superficie de arcilla y las líneas de la cancha" loading="lazy"></div><div class="experience-copy reveal-up"><h2>La arcilla<br><em>se siente.</em></h2><div class="feature-list"><div><span>01</span><p>Turnos flexibles<br><small>De lunes a domingo</small></p></div><div><span>02</span><p>Clases personalizadas<br><small>Para todos los niveles</small></p></div><div><span>03</span><p>Club house<br><small>El tercer tiempo empieza acá</small></p></div></div></div></section>
     <section class="news-section section-pad" id="noticias"><div class="section-heading reveal-up"><h2>Desde<br><em>el club.</em></h2><a class="text-link news-open-trigger" href="#noticias">Ver todas las noticias <span>↗</span></a></div><div class="news-carousel reveal-up" aria-label="Carrusel de noticias"><div class="news-carousel__stage"><article class="news-card is-active" data-news-id="ritual" data-relevant="true" tabindex="0" role="button"><div class="news-card__media"><img src="imagen3.jpg" alt="Pelota de tenis sobre arcilla" loading="lazy"></div><div class="news-card__overlay"><span class="news-relevance">Relevante</span><p class="mono news-card__meta">18.09.24</p><p class="news-card__subtitle">Comunidad</p><h3>El ritual de cada<br>partido empieza antes.</h3><p class="news-card__copy">Hay partidos que empiezan mucho antes del primer saque: en la preparación, en la conversación y en ese instante en que la cancha vuelve a sentirse propia.</p></div></article><article class="news-card" data-news-id="identidad" data-relevant="false" tabindex="0" role="button"><div class="news-card__media"><img src="logo.png" alt="Logo vectorial de El Pinar" loading="lazy"></div><div class="news-card__overlay"><p class="mono news-card__meta">12.09.24</p><p class="news-card__subtitle">Club</p><h3>Una identidad<br>con raíces.</h3><p class="news-card__copy">El Pinar también se construye en sus gestos: una identidad reconocible, una comunidad cercana y una forma propia de vivir el tenis.</p></div></article></div><div class="news-carousel__controls"><button class="depth-arrow" type="button" data-news-prev aria-label="Noticia anterior">←</button><span class="depth-counter mono" data-news-counter aria-live="polite">01 / 02</span><button class="depth-arrow" type="button" data-news-next aria-label="Noticia siguiente">→</button></div></div></section>

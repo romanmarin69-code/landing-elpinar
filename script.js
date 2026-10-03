@@ -101,7 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hero: content parallax on scroll (content drifts up slower than the page).
     gsap.to('.hero-content', { yPercent: -18, opacity: .25, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .6 } });
-    gsap.to('.hero-stamp', { yPercent: -60, rotate: -6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
+    const heroStamp = document.querySelector('.hero-stamp');
+    if (heroStamp && getComputedStyle(heroStamp).display !== 'none') gsap.to(heroStamp, { yPercent: -60, rotate: -6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
     gsap.fromTo('.hero-backdrop', { scale: 1.04 }, { scale: 1.18, yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
     // Deeper parallax on section images.
@@ -116,7 +117,28 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
     gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 45, rotateY: index % 2 ? 4 : -4, opacity: 0, duration: .8, delay: (index % 4) * .08, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 92%', once: true } }));
     gsap.from('.hero-content > *', { y: 45, opacity: 0, stagger: .14, duration: 1.1, delay: 1.2, ease: 'expo.out' });
-    gsap.from('.section-label', { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '.section-label', start: 'top 90%', once: true } });
+    const firstLabel = document.querySelector('.section-label');
+    if (firstLabel) gsap.from('.section-label', { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: firstLabel, start: 'top 90%', once: true } });
+
+    // Court scroll-telling: the ball drops in, drifts diagonally and spins with the scroll.
+    const court = document.querySelector('.court');
+    if (court) {
+      const ball = court.querySelector('.tennis-ball__sphere');
+      const texture = court.querySelector('.tennis-ball__texture');
+      const shadow = court.querySelector('.tennis-ball__shadow');
+      gsap.set(ball, { yPercent: -95, xPercent: 28, rotate: -30, scale: .68 });
+      gsap.set(shadow, { opacity: 0, scale: .5 });
+      const ballTl = gsap.timeline({ scrollTrigger: { trigger: court, start: 'top 62%', end: 'bottom bottom', scrub: .9 } });
+      ballTl
+        .to(ball, { yPercent: 0, xPercent: 20, rotate: 10, scale: 1, duration: .9, ease: 'power2.out' }, 0)
+        .to(shadow, { opacity: .8, scale: 1, duration: .9, ease: 'power2.out' }, 0)
+        .to(ball, { yPercent: -14, xPercent: -26, rotate: 130, scale: 1.22, duration: 1.6, ease: 'none' }, .9)
+        .to(texture, { xPercent: -9, yPercent: 7, duration: 2.5, ease: 'none' }, 0)
+        .to(shadow, { scale: 1.35, opacity: .55, y: 10, duration: 1.6, ease: 'none' }, .9)
+        .to(ball, { yPercent: 26, xPercent: -46, rotate: 210, scale: .9, duration: 1.4, ease: 'power1.in' }, 2.5)
+        .to(shadow, { scale: 1.05, opacity: .75, y: 0, duration: 1.4, ease: 'power1.in' }, 2.5);
+      gsap.from('.court-copy > *', { y: 50, opacity: 0, stagger: .12, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: court, start: 'top 30%', once: true } });
+    }
   }
 
   const carousel = document.querySelector('.depth-carousel');
