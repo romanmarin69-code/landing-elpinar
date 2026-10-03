@@ -124,16 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (court) {
       const ballImg = court.querySelector('.court-ball__img');
       const shadow = court.querySelector('.court-ball__shadow');
-      gsap.set(ballImg, { yPercent: -105, xPercent: 46, rotate: -24, scale: .62 });
+      gsap.set(ballImg, { yPercent: -130, xPercent: 52, rotate: -30, scale: .55 });
       gsap.set(shadow, { opacity: 0, scale: .45 });
-      const ballTl = gsap.timeline({ scrollTrigger: { trigger: court, start: 'top 60%', end: 'bottom bottom', scrub: .9 } });
+      const ballTl = gsap.timeline({ scrollTrigger: { trigger: court, start: 'top top', end: 'bottom bottom', scrub: .9 } });
       ballTl
-        .to(ballImg, { yPercent: -6, xPercent: 30, rotate: 8, scale: 1, duration: 1, ease: 'power2.out' }, 0)
+        .to(ballImg, { yPercent: 2, xPercent: 34, rotate: 10, scale: 1, duration: 1, ease: 'power2.out' }, 0)
         .to(shadow, { opacity: .75, scale: 1, duration: 1, ease: 'power2.out' }, 0)
-        .to(ballImg, { yPercent: -16, xPercent: -18, rotate: 96, scale: 1.24, duration: 1.8, ease: 'none' }, 1)
-        .to(shadow, { scale: 1.35, opacity: .45, y: 10, duration: 1.8, ease: 'none' }, 1)
-        .to(ballImg, { yPercent: 20, xPercent: -42, rotate: 168, scale: .94, duration: 1.6, ease: 'power1.in' }, 2.8)
-        .to(shadow, { scale: 1, opacity: .7, y: 0, duration: 1.6, ease: 'power1.in' }, 2.8);
+        .to(ballImg, { yPercent: -10, xPercent: -14, rotate: 100, scale: 1.22, duration: 1.8, ease: 'none' }, 1)
+        .to(shadow, { scale: 1.32, opacity: .48, y: 10, duration: 1.8, ease: 'none' }, 1)
+        .to(ballImg, { yPercent: 26, xPercent: -40, rotate: 170, scale: .92, duration: 1.6, ease: 'power1.in' }, 2.8)
+        .to(shadow, { scale: .95, opacity: .7, y: 0, duration: 1.6, ease: 'power1.in' }, 2.8);
       gsap.from('.court-copy > *', { y: 50, opacity: 0, stagger: .12, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: court, start: 'top 32%', once: true } });
     }
   }
