@@ -119,9 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.from('.hero-content > *', { y: 45, opacity: 0, stagger: .14, duration: 1.1, delay: 1.2, ease: 'expo.out' });
     gsap.from('.section-label', { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '.section-label', start: 'top 90%', once: true } });
 
-    // Court scroll-telling: the ball flies while the sprite advances through the 4 real
-    // rotation frames in order. The renderer blurs each frame boundary with a subtle
-    // velocity-weighted rotate+scale, so transitions read as motion, not image swaps.
+    // Court scroll-telling: the ball flies across the viewport while the sprite advances
+    // through the 20 interpolated rotation frames (18° per step — continuous real spin).
     const court = document.querySelector('.court');
     if (court) {
       const ballCanvas = court.querySelector('#ballSprite');
@@ -129,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const rotation = { progress: 0 };
       gsap.set(ballCanvas, { yPercent: -120, xPercent: 48, scale: .5, opacity: 0 });
       gsap.set(shadow, { opacity: 0, scale: .45 });
-      const ballTl = gsap.timeline({ scrollTrigger: { trigger: court, start: 'top 80%', end: 'bottom bottom', scrub: .8 } });
+      const ballTl = gsap.timeline({ scrollTrigger: { trigger: court, start: 'top top', end: 'bottom bottom', scrub: .8 } });
       ballTl
         .to(ballCanvas, { opacity: 1, duration: .25, ease: 'power2.out' }, 0)
         .to(ballCanvas, { yPercent: 4, xPercent: 30, scale: 1, duration: 1.2, ease: 'power2.out' }, 0)
@@ -139,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .to(ballCanvas, { yPercent: 24, xPercent: -38, scale: .9, duration: 1.8, ease: 'power1.in' }, 3.2)
         .to(shadow, { scale: .95, opacity: .7, y: 0, duration: 1.8, ease: 'power1.in' }, 3.2)
         .to(rotation, { progress: 2, duration: 5, ease: 'none', onUpdate: () => window.ballSprite?.set(rotation.progress) }, 0);
-      gsap.from('.court-copy > *', { y: 50, opacity: 0, stagger: .12, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: court, start: 'top 32%', once: true } });
+      gsap.from('.court-copy > *', { y: 50, opacity: 0, stagger: .12, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: court, start: 'top 60%', once: true } });
     }
   }
 

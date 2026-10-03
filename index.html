@@ -68,24 +68,27 @@
   <main>
     <section class="hero" id="inicio"><div class="hero-backdrop parallax-layer"></div><div class="hero-shade"></div><div class="hero-content"><h1>CLUB<br>EL PINAR</h1></div></section>
     <section class="court" id="cancha" aria-label="La cancha de El Pinar">
-      <div class="court-ground"></div>
-      <div class="court-lines" aria-hidden="true"></div>
-      <figure class="court-ball" aria-hidden="true">
-        <canvas class="court-ball__canvas" id="ballSprite"></canvas>
-        <span class="court-ball__shadow"></span>
-      </figure>
-      <div class="court-copy">
-        <p class="section-label mono">La cancha</p>
-        <h2>Donde la pelota<br><em>marca el ritmo.</em></h2>
+      <div class="court-stage">
+        <div class="court-ground"></div>
+        <div class="court-lines" aria-hidden="true"></div>
+        <figure class="court-ball" aria-hidden="true">
+          <canvas class="court-ball__canvas" id="ballSprite"></canvas>
+          <span class="court-ball__shadow"></span>
+        </figure>
+        <div class="court-copy">
+          <p class="section-label mono">La cancha</p>
+          <h2>¿Listo para tu<br><em>próximo encuentro?</em></h2>
+        </div>
+        <p class="court-hint mono" aria-hidden="true">Seguí scrolleando ↓</p>
       </div>
-      <p class="court-hint mono" aria-hidden="true">Seguí scrolleando ↓</p>
     </section>
     <style>
-      .court { position:relative; min-height:220vh; color:var(--cloud); background:#241a15; overflow:hidden; }
-      .court-ground { position:sticky; top:0; height:100vh; background:linear-gradient(180deg,rgba(20,12,8,.9) 0%,rgba(38,24,15,.74) 45%,rgba(56,32,18,.62) 100%),url('imagen1.jpg') center 34%/cover; }
-      .court-ground::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 92% 64% at 50% 46%,transparent 28%,rgba(14,7,4,.68) 100%); }
+      .court { position:relative; min-height:150vh; color:var(--cloud); background:#241a15; }
+      .court-stage { position:sticky; top:0; height:100vh; overflow:hidden; }
+      .court-ground { position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,12,8,.82) 0%,rgba(38,24,15,.62) 45%,rgba(56,32,18,.5) 100%),url('imagen1.jpg') center 34%/cover; }
+      .court-ground::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 92% 64% at 50% 46%,transparent 32%,rgba(14,7,4,.6) 100%); }
       .court-lines { position:absolute; inset:0; pointer-events:none; opacity:.45; background:linear-gradient(0deg,transparent 64%,rgba(240,238,233,.3) 64.2%,rgba(240,238,233,.3) 64.6%,transparent 65%),linear-gradient(0deg,transparent 79%,rgba(240,238,233,.2) 79.2%,rgba(240,238,233,.2) 79.5%,transparent 80%); mask-image:linear-gradient(180deg,transparent 20%,#000 62%); -webkit-mask-image:linear-gradient(180deg,transparent 20%,#000 62%); }
-      .court-ball { position:sticky; top:0; height:100vh; margin:0; margin-top:-100vh; display:grid; place-items:center; pointer-events:none; z-index:2; }
+      .court-ball { position:absolute; inset:0; margin:0; display:grid; place-items:center; pointer-events:none; z-index:2; }
       .court-ball__canvas { width:clamp(300px,46vmin,560px); height:clamp(300px,46vmin,560px); display:block; filter:drop-shadow(0 40px 70px rgba(0,0,0,.55)); will-change:transform; }
       .court-ball__shadow { position:absolute; left:50%; bottom:11vh; width:min(340px,36vw); height:34px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(ellipse,rgba(4,2,0,.75) 0%,transparent 60%); filter:blur(8px); will-change:transform,opacity; }
       .court-copy { position:absolute; z-index:3; left:8vw; top:13vh; max-width:480px; }
@@ -93,11 +96,11 @@
       .court-copy .section-label { color:#e5a47d; }
       .court-hint { position:absolute; z-index:3; right:8vw; bottom:5vh; color:rgba(240,238,233,.5); animation:court-hint 2.2s var(--ease-out) infinite alternate; }
       @keyframes court-hint { from { transform:translateY(0); opacity:.45; } to { transform:translateY(8px); opacity:.85; } }
-      @media (max-width:700px) { .court { min-height:180vh; } .court-copy { top:11vh; } .court-ball__canvas { width:min(74vw,360px); height:min(74vw,360px); } .court-ball__shadow { bottom:9vh; } }
-      @media (prefers-reduced-motion:reduce) { .court { min-height:100vh; } .court-hint { animation:none; } .court-ball,.court-ground { position:relative; margin-top:0; } }
+      @media (max-width:700px) { .court-copy { top:11vh; } .court-ball__canvas { width:min(74vw,360px); height:min(74vw,360px); } .court-ball__shadow { bottom:9vh; } }
+      @media (prefers-reduced-motion:reduce) { .court { min-height:100vh; } .court-hint { animation:none; } }
     </style>
     <section class="nosotros section-pad" id="nosotros"><div class="nosotros-heading"><p class="section-label mono">01 / Nosotros</p><h2>Un club para<br><em>quedarse.</em></h2><p class="body-copy">Tres formas de vivir El Pinar: la cancha, el paisaje y todo lo que sucede alrededor.</p></div><div class="depth-carousel" aria-label="Galería de El Pinar"><div class="depth-carousel__stage"><figure class="depth-card is-center"><img src="imagen1.jpg" alt="Detalle de la superficie de arcilla" loading="lazy"><figcaption>La cancha</figcaption></figure><figure class="depth-card is-right"><img src="imagen2.jpg" alt="Cancha de tenis rodeada de árboles" loading="lazy"><figcaption>El paisaje</figcaption></figure><figure class="depth-card is-left"><img src="imagen3.jpg" alt="Pelota de tenis sobre arcilla" loading="lazy"><figcaption>El ritual</figcaption></figure></div><div class="depth-carousel__controls"><button class="depth-arrow" type="button" data-carousel-prev aria-label="Foto anterior">←</button><span class="depth-counter mono" aria-live="polite">01 / 03</span><button class="depth-arrow" type="button" data-carousel-next aria-label="Foto siguiente">→</button></div></div></section>
-    <section class="experience section-pad" id="info"><div class="experience-image image-frame parallax-wrap"><img class="parallax-image" src="imagen1.jpg" alt="Detalle de la superficie de arcilla y las líneas de la cancha" loading="lazy"></div><div class="experience-copy reveal-up"><h2>La arcilla<br><em>se siente.</em></h2><div class="feature-list"><div><span>01</span><p>Turnos flexibles<br><small>De lunes a domingo</small></p></div><div><span>02</span><p>Clases personalizadas<br><small>Para todos los niveles</small></p></div><div><span>03</span><p>Club house<br><small>El tercer tiempo empieza acá</small></p></div></div></div></section>
+    <section class="experience section-pad" id="info"><div class="experience-image image-frame parallax-wrap"><img class="parallax-image" src="imagen1.jpg" alt="Detalle de la superficie de arcilla y las líneas de la cancha" loading="lazy"></div><div class="experience-copy reveal-up"><p class="section-label mono">02 / La experiencia</p><h2>La arcilla<br><em>se siente.</em></h2><div class="feature-list"><div><span>01</span><p>Turnos flexibles<br><small>De lunes a domingo</small></p></div><div><span>02</span><p>Clases personalizadas<br><small>Para todos los niveles</small></p></div><div><span>03</span><p>Club house<br><small>El tercer tiempo empieza acá</small></p></div></div></div></section>
     <section class="news-section section-pad" id="noticias"><div class="section-heading reveal-up"><h2>Desde<br><em>el club.</em></h2><a class="text-link news-open-trigger" href="#noticias">Ver todas las noticias <span>↗</span></a></div><div class="news-carousel reveal-up" aria-label="Carrusel de noticias"><div class="news-carousel__stage"><article class="news-card is-active" data-news-id="ritual" data-relevant="true" tabindex="0" role="button"><div class="news-card__media"><img src="imagen3.jpg" alt="Pelota de tenis sobre arcilla" loading="lazy"></div><div class="news-card__overlay"><span class="news-relevance">Relevante</span><p class="mono news-card__meta">18.09.24</p><p class="news-card__subtitle">Comunidad</p><h3>El ritual de cada<br>partido empieza antes.</h3><p class="news-card__copy">Hay partidos que empiezan mucho antes del primer saque: en la preparación, en la conversación y en ese instante en que la cancha vuelve a sentirse propia.</p></div></article><article class="news-card" data-news-id="identidad" data-relevant="false" tabindex="0" role="button"><div class="news-card__media"><img src="logo.png" alt="Logo vectorial de El Pinar" loading="lazy"></div><div class="news-card__overlay"><p class="mono news-card__meta">12.09.24</p><p class="news-card__subtitle">Club</p><h3>Una identidad<br>con raíces.</h3><p class="news-card__copy">El Pinar también se construye en sus gestos: una identidad reconocible, una comunidad cercana y una forma propia de vivir el tenis.</p></div></article></div><div class="news-carousel__controls"><button class="depth-arrow" type="button" data-news-prev aria-label="Noticia anterior">←</button><span class="depth-counter mono" data-news-counter aria-live="polite">01 / 02</span><button class="depth-arrow" type="button" data-news-next aria-label="Noticia siguiente">→</button></div></div></section>
     <section class="tournaments section-pad" id="torneos"><div class="tournament-head"><p class="section-label mono">05 / Competencia</p><h2>Torneos que<br><em>dejan marca.</em></h2><p class="body-copy">La energía de competir, el respeto por el juego y una mesa compartida al final.</p></div><div class="tournament-table"><div class="tournament-row tournament-row--head mono"><span>Fecha</span><span>Nombre</span><span>Modalidad</span><span></span></div><a class="tournament-row" href="#turnos"><span class="mono">05 OCT</span><strong>Copa El Pinar</strong><span>Dobles mixtos</span><b>↗</b></a><a class="tournament-row" href="#turnos"><span class="mono">19 OCT</span><strong>Interclubes Primavera</strong><span>Equipos</span><b>↗</b></a><a class="tournament-row" href="#turnos"><span class="mono">02 NOV</span><strong>Open El Pinar</strong><span>Singles</span><b>↗</b></a></div></section>
     <section class="booking" id="turnos"><div class="booking-shape"></div><p class="section-label mono">06 / Reservas</p><h2>Tu próxima<br><em>cancha te espera.</em></h2><p>Elegí tu horario y dejá que el partido haga el resto.</p><a class="button-light" href="https://wa.me/5491100000000" target="_blank" rel="noreferrer">Agendar un turno <span>↗</span></a></section>
