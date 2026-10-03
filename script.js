@@ -49,15 +49,74 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  if (hasGsap) {
+  // Split headlines into masked words for the cinematic reveal.
+  function splitWords(element) {
+    const nodes = [...element.childNodes];
+    element.innerHTML = '';
+    nodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        node.textContent.split(/(\s+)/).forEach((piece) => {
+          if (!piece.trim()) { element.append(document.createTextNode(piece)); return; }
+          const wrap = document.createElement('span');
+          wrap.className = 'split-word';
+          const inner = document.createElement('span');
+          inner.textContent = piece;
+          wrap.append(inner);
+          element.append(wrap);
+        });
+      } else if (node.nodeName === 'BR') {
+        element.append(node);
+      } else {
+        const clone = node.cloneNode(false);
+        element.append(clone);
+        splitWordsInto(clone, node);
+      }
+    });
+  }
+  function splitWordsInto(target, source) {
+    [...source.childNodes].forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        node.textContent.split(/(\s+)/).forEach((piece) => {
+          if (!piece.trim()) { target.append(document.createTextNode(piece)); return; }
+          const wrap = document.createElement('span');
+          wrap.className = 'split-word';
+          const inner = document.createElement('span');
+          inner.textContent = piece;
+          wrap.append(inner);
+          target.append(wrap);
+        });
+      } else if (node.nodeName === 'BR') {
+        target.append(document.createElement('br'));
+      }
+    });
+  }
+
+  if (hasGsap && !prefersReducedMotion) {
+    const splitTargets = document.querySelectorAll('.experience-copy h2, .section-heading h2, .tournament-head h2, .booking h2, .nosotros-heading h2');
+    splitTargets.forEach((heading) => {
+      splitWords(heading);
+      const words = heading.querySelectorAll('.split-word > span');
+      gsap.fromTo(words, { yPercent: 115, rotate: 3 }, { yPercent: 0, rotate: 0, duration: 1.1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: heading, start: 'top 86%', once: true }, onComplete: () => gsap.set(words, { clearProps: 'transform' }) });
+    });
+
+    // Hero: content parallax on scroll (content drifts up slower than the page).
+    gsap.to('.hero-content', { yPercent: -18, opacity: .25, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .6 } });
+    gsap.to('.hero-stamp', { yPercent: -60, rotate: -6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
+    gsap.fromTo('.hero-backdrop', { scale: 1.04 }, { scale: 1.18, yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+    // Deeper parallax on section images.
     document.querySelectorAll('.parallax-wrap').forEach((wrap) => {
       const image = wrap.querySelector('.parallax-image');
-      gsap.fromTo(image, { yPercent: -13, scale: 1.12 }, { yPercent: 8, scale: 1.02, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.2 } });
+      gsap.fromTo(image, { yPercent: -18, scale: 1.18 }, { yPercent: 14, scale: 1.02, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1 } });
     });
+
+    // Depth-carousel: stage drifts on scroll.
+    gsap.fromTo('.depth-carousel__stage', { y: 60, rotateX: 6 }, { y: -30, rotateX: 0, ease: 'none', scrollTrigger: { trigger: '.nosotros', start: 'top bottom', end: 'bottom top', scrub: 1.2 } });
+
     gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
-    gsap.utils.toArray('.experience-copy h2, .section-heading h2, .tournament-head h2, .booking h2').forEach((heading) => gsap.from(heading, { y: 55, rotateX: -8, clipPath: 'inset(0 0 100% 0)', opacity: 0, duration: 1.05, ease: 'expo.out', scrollTrigger: { trigger: heading, start: 'top 84%', once: true } }));
-    gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 35, rotateY: index % 2 ? 3 : -3, opacity: 0, duration: .7, delay: (index % 4) * .07, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 90%', once: true } }));
-    gsap.from('.hero-content > *', { y: 35, opacity: 0, stagger: .11, duration: .9, delay: 1.2, ease: 'expo.out' });
+    gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 45, rotateY: index % 2 ? 4 : -4, opacity: 0, duration: .8, delay: (index % 4) * .08, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 92%', once: true } }));
+    gsap.from('.hero-content > *', { y: 45, opacity: 0, stagger: .14, duration: 1.1, delay: 1.2, ease: 'expo.out' });
+    gsap.from('.section-label', { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '.section-label', start: 'top 90%', once: true } });
   }
 
   const carousel = document.querySelector('.depth-carousel');
