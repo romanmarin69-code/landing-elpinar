@@ -138,10 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .to(shadow, { scale: 1.32, opacity: .48, y: 10, duration: 2, ease: 'none' }, 1.2)
         .to(ballCanvas, { yPercent: 24, xPercent: -38, scale: .9, duration: 1.8, ease: 'power1.in' }, 3.2)
         .to(shadow, { scale: .95, opacity: .7, y: 0, duration: 1.8, ease: 'power1.in' }, 3.2)
-        .to(rotation, {
-          progress: 2, duration: 5, ease: 'none',
-          onUpdate: () => window.ballSprite?.set(rotation.progress, ballTl.scrollTrigger?.getVelocity?.() || 0)
-        }, 0);
+        .to(rotation, { progress: 2, duration: 5, ease: 'none', onUpdate: () => window.ballSprite?.set(rotation.progress) }, 0);
       gsap.from('.court-copy > *', { y: 50, opacity: 0, stagger: .12, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: court, start: 'top 32%', once: true } });
     }
   }
