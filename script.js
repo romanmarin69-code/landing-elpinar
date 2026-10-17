@@ -5,7 +5,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const introStart = document.querySelector('#introStart');
   const nav = document.querySelector('#mainNav');
   const menuToggle = document.querySelector('#menuToggle');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const prefersReducedMotion = motionPreference.matches;
+  const heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    const syncHeroVideo = () => {
+      heroVideo.hidden = motionPreference.matches;
+      if (motionPreference.matches) {
+        heroVideo.pause();
+      } else {
+        heroVideo.play().catch((error) => {
+          heroVideo.hidden = true;
+          console.warn('No se pudo reproducir el video de portada; se muestra la imagen de respaldo.', error);
+        });
+      }
+    };
+    heroVideo.addEventListener('error', () => {
+      heroVideo.hidden = true;
+      console.error('Error al cargar el video de portada.', heroVideo.error);
+    }, true);
+    motionPreference.addEventListener('change', syncHeroVideo);
+    syncHeroVideo();
+  }
   const pointerTarget = { x: 0, y: 0 };
   const pointerCurrent = { x: 0, y: 0 };
 
