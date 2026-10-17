@@ -187,7 +187,7 @@ body.modal-open { overflow: hidden; }
   font-display: swap;
 }
 .hero { padding-bottom: 11vw; }
-.hero-backdrop { background-image: url('Fondo_Club.png'); }
+.hero-backdrop { background-image: url('Fondo_Club.png'); transform: none; filter: none; }
 .hero-video { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; pointer-events: none; }
 .hero-content { max-width: min(100%, 960px); }
 .hero h1 {
@@ -201,10 +201,15 @@ body.modal-open { overflow: hidden; }
   text-rendering: geometricPrecision;
   text-shadow: 0 3px 10px rgba(0,0,0,.24);
 }
-@media (min-width: 1000px) {
-  .main-nav { margin-right: clamp(2rem, 10vw, 12rem); }
+@media (min-width: 701px) {
+  .site-header { justify-content: flex-start; gap: clamp(1.5rem, 3vw, 3rem); }
 }
 @media (max-width: 700px) {
+  .menu-toggle { margin-left: auto; }
   .hero { padding-bottom: 16vw; }
   .hero h1 { font-size: clamp(2.75rem, 13vw, 5.5rem); }
 }
+
+/* Nosotros follows the hero directly on a solid cream background. */
+.nosotros { background: #f5ebd0; }
+.nosotros::before, .nosotros::after { display: none; }
