@@ -191,7 +191,7 @@ body.modal-open { overflow: hidden; }
   color: #f5ebd0;
   font-family: 'Monument Extended', var(--sans);
   font-weight: 900;
-  font-size: clamp(5rem, 14vw, 15rem);
+  font-size: clamp(4rem, 11vw, 11rem);
   line-height: .92;
   letter-spacing: -.035em;
   -webkit-font-smoothing: antialiased;
@@ -204,7 +204,7 @@ body.modal-open { overflow: hidden; }
 @media (max-width: 700px) {
   .menu-toggle { margin-left: auto; }
   .hero { padding-bottom: 16vw; }
-  .hero h1 { font-size: clamp(3.25rem, 16vw, 7rem); }
+  .hero h1 { font-size: clamp(3rem, 14vw, 6rem); }
 }
 
 /* Nosotros follows the hero directly on a solid cream background. */
