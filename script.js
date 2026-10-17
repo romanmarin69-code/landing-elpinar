@@ -131,8 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
       gsap.fromTo(image, { yPercent: -18, scale: 1.18 }, { yPercent: 14, scale: 1.02, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1 } });
     });
 
-    // Depth-carousel: stage drifts on scroll.
-    gsap.fromTo('.depth-carousel__stage', { y: 60, rotateX: 6 }, { y: -30, rotateX: 0, ease: 'none', scrollTrigger: { trigger: '.nosotros', start: 'top bottom', end: 'bottom top', scrub: 1.2 } });
+    // Nosotros: entrada sutil con fade-up, sin rotaciones.
+    gsap.fromTo('.nosotros-hero-image', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros', start: 'top 70%', once: true } });
+    gsap.fromTo('.nosotros-content > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros-content', start: 'top 78%', once: true } });
 
     gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
     gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 45, rotateY: index % 2 ? 4 : -4, opacity: 0, duration: .8, delay: (index % 4) * .08, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 92%', once: true } }));
