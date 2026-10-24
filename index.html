@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
   <style>
     .intro-screen { perspective:1200px; background:#060010; }
     .intro-screen::before { content:''; position:absolute; inset:-20%; opacity:.28; background:repeating-linear-gradient(90deg,transparent 0 9vw,rgba(240,238,233,.22) 9.05vw 9.1vw),repeating-linear-gradient(0deg,transparent 0 9vw,rgba(240,238,233,.16) 9.05vw 9.1vw); transform:rotateX(68deg) rotateZ(-18deg) translateY(22%); transform-origin:center bottom; box-shadow:0 -40px 100px rgba(255,190,140,.2); }
@@ -34,8 +34,6 @@
     .intro-screen, .hero, .manifesto, .experience, .news-section, .tournaments, .booking { transform-style: preserve-3d; backface-visibility: hidden; }
     .intro-screen { contain: layout paint; }
     .hero { perspective: 1400px; isolation: isolate; }
-    .hero-content { z-index: 3; transform: translate3d(calc(var(--mouse-x) * 10px), calc(var(--mouse-y) * 7px), 90px); transform-style: preserve-3d; }
-    .hero-content h1 { text-shadow: 0 3px 10px rgba(0,0,0,.24); -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
     .hero-stamp { transform: translateZ(130px) rotate(-12deg); text-shadow: 0 12px 20px rgba(0,0,0,.24); }
     .section-pad { position:relative; perspective:1200px; }
     .manifesto::before, .experience::before, .news-section::before, .tournaments::before, .booking::after { content:''; position:absolute; z-index:0; pointer-events:none; opacity:.45; background:linear-gradient(120deg,rgba(255,255,255,.34),transparent 38%,rgba(25,26,23,.08)); transform:translate3d(var(--layer-x,0px),var(--layer-y,0px),-90px) rotateX(58deg) rotateZ(-8deg); transform-origin:center; will-change:transform; }
@@ -65,11 +63,10 @@
   <main>
     <section class="hero" id="inicio">
       <div class="hero-backdrop parallax-layer">
-        <video class="hero-video" autoplay muted loop playsinline poster="Fondo_Club.png" aria-hidden="true">
-          <source src="fondo_animado_hd.mp4?v=2" type="video/mp4">
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="fondomp4-poster.jpg" aria-hidden="true">
+          <source src="fondomp4.mp4?v=2" type="video/mp4">
         </video>
       </div>
-      <div class="hero-content"><h1>CLUB<br>EL PINAR</h1></div>
     </section>
     <section class="nosotros section-pad" id="nosotros">
       <figure class="nosotros-hero-image" aria-label="Vista aérea del club">

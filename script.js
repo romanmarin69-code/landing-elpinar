@@ -120,8 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
       gsap.fromTo(words, { yPercent: 115, rotate: 3 }, { yPercent: 0, rotate: 0, duration: 1.1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: heading, start: 'top 86%', once: true }, onComplete: () => gsap.set(words, { transform: 'none' }) });
     });
 
-    // Hero: content parallax on scroll (content drifts up slower than the page).
-    gsap.to('.hero-content', { yPercent: -18, opacity: .25, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .6 } });
     const heroStamp = document.querySelector('.hero-stamp');
     if (heroStamp && getComputedStyle(heroStamp).display !== 'none') gsap.to(heroStamp, { yPercent: -60, rotate: -6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
 
@@ -137,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
     gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 45, rotateY: index % 2 ? 4 : -4, opacity: 0, duration: .8, delay: (index % 4) * .08, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 92%', once: true } }));
-    gsap.from('.hero-content > *', { y: 45, opacity: 0, stagger: .14, duration: 1.1, delay: 1.2, ease: 'expo.out' });
     gsap.from('.section-label', { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '.section-label', start: 'top 90%', once: true } });
 
   }
