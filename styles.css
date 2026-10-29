@@ -190,3 +190,21 @@ body.modal-open { overflow: hidden; }
 }
 
 /* Nosotros follows the hero directly on a solid cream background. */
+
+.booking.location { min-height: auto; align-items: center; padding: clamp(4rem, 8vw, 8rem) 7vw; background: #7f011f; text-align: center; }
+.booking.location::before, .booking.location::after { content: none; }
+.booking.location h2 { margin: 0 0 1.5rem; font-size: clamp(2rem, 5.5vw, 5rem); line-height: 1.1; letter-spacing: -.04em; transform: none; }
+.location-name { display: inline-block; margin-top: .3em; font-weight: 500; font-size: .65em; }
+.location-address { margin-bottom: 2rem; font-style: normal; font-size: clamp(.85rem, 1.5vw, 1rem); line-height: 1.7; }
+.location-map { display: block; width: min(100%, 960px); height: clamp(300px, 38vw, 420px); border: 0; background: var(--cloud); }
+.location-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+.location-social { display: grid; place-items: center; width: 56px; height: 56px; color: #fff; border-radius: 8px; }
+.location-social svg { display: block; width: 40px; height: 40px; }
+.location-social:hover { background: rgba(255,255,255,.12); }
+.location-social:active { background: rgba(255,255,255,.2); }
+.location-social:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.location-directions { margin-top: 1.5rem; font-size: .85rem; line-height: 1.5; text-decoration: underline; text-underline-offset: .3em; }
+.location-directions:hover { text-decoration-thickness: 2px; }
+.location-directions:focus-visible, .location-map:focus-visible { outline: 2px solid var(--cloud); outline-offset: 4px; }
+.site-footer { color: var(--ink); background: #edeae2; }
+.site-footer p { color: var(--ink); line-height: 1.6; }
