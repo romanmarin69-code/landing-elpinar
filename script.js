@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pointerCurrent = { x: 0, y: 0 };
 
   const driftWall = document.querySelector('#driftWall');
-  const driftImages = ['imagen1.jpg', 'imagen2.jpg', 'imagen3.jpg'];
+  const driftImages = ['Portada%20INICIO/imagen1.jpg', 'Portada%20INICIO/imagen2.jpg', 'Portada%20INICIO/imagen3.jpg'];
   const tileSetSize = 8;
   const columnWidth = window.innerWidth <= 700 ? window.innerWidth * .3 : 200;
   const columnCount = Math.ceil(window.innerWidth / columnWidth) + 4;
@@ -196,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (newsModal) {
     const newsOrder = ['ritual', 'identidad'];
     const newsData = {
-      ritual: { image: 'imagen3.jpg', alt: 'Pelota de tenis sobre arcilla', meta: '18.09.24 / Comunidad', title: 'El ritual de cada partido empieza antes.', titleHtml: 'El ritual de cada<br>partido empieza antes.', copy: 'Hay partidos que empiezan mucho antes del primer saque: en la preparación, en la conversación y en ese instante en que la cancha vuelve a sentirse propia.' },
-      identidad: { image: 'logo.png', alt: 'Logo vectorial de El Pinar', meta: '12.09.24 / Club', title: 'Una identidad con raíces.', titleHtml: 'Una identidad<br>con raíces.', copy: 'El Pinar también se construye en sus gestos: una identidad reconocible, una comunidad cercana y una forma propia de vivir el tenis.' }
+      ritual: { image: 'Portada%20INICIO/imagen3.jpg', alt: 'Pelota de tenis sobre arcilla', meta: '18.09.24 / Comunidad', title: 'El ritual de cada partido empieza antes.', titleHtml: 'El ritual de cada<br>partido empieza antes.', copy: 'Hay partidos que empiezan mucho antes del primer saque: en la preparación, en la conversación y en ese instante en que la cancha vuelve a sentirse propia.' },
+      identidad: { image: 'Logos/logo2.png', alt: 'Logo de El Pinar', meta: '12.09.24 / Club', title: 'Una identidad con raíces.', titleHtml: 'Una identidad<br>con raíces.', copy: 'El Pinar también se construye en sus gestos: una identidad reconocible, una comunidad cercana y una forma propia de vivir el tenis.' }
     };
 
     // Repeat the news set a few times so the preview reads as a continuous, looping strip of cards.
