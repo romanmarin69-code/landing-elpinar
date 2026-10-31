@@ -70,77 +70,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Split headlines into masked words for the cinematic reveal.
-  function splitWords(element) {
-    const nodes = [...element.childNodes];
-    element.innerHTML = '';
-    nodes.forEach((node) => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        node.textContent.split(/(\s+)/).forEach((piece) => {
-          if (!piece.trim()) { element.append(document.createTextNode(piece)); return; }
-          const wrap = document.createElement('span');
-          wrap.className = 'split-word';
-          const inner = document.createElement('span');
-          inner.textContent = piece;
-          wrap.append(inner);
-          element.append(wrap);
-        });
-      } else if (node.nodeName === 'BR') {
-        element.append(node);
-      } else {
-        const clone = node.cloneNode(false);
-        element.append(clone);
-        splitWordsInto(clone, node);
-      }
+  if ('IntersectionObserver' in window) {
+    const revealTargets = document.querySelectorAll(
+      'main > section:not(.hero) .section-label, main > section:not(.hero) h2, ' +
+      '.nosotros-hero-image, .nosotros-thumb, .nosotros-copy, .experience-background, ' +
+      '.feature-list > div, .section-heading .text-link, .news-carousel, ' +
+      '.location-address, .location-map, .location-actions, .location-directions, .site-footer > *'
+    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+
+    revealTargets.forEach((element) => {
+      element.classList.add('scroll-reveal');
+      observer.observe(element);
     });
-  }
-  function splitWordsInto(target, source) {
-    [...source.childNodes].forEach((node) => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        node.textContent.split(/(\s+)/).forEach((piece) => {
-          if (!piece.trim()) { target.append(document.createTextNode(piece)); return; }
-          const wrap = document.createElement('span');
-          wrap.className = 'split-word';
-          const inner = document.createElement('span');
-          inner.textContent = piece;
-          wrap.append(inner);
-          target.append(wrap);
-        });
-      } else if (node.nodeName === 'BR') {
-        target.append(document.createElement('br'));
-      }
+    document.querySelectorAll('.nosotros-thumb, .feature-list > div').forEach((element) => {
+      const index = [...element.parentElement.children].indexOf(element);
+      element.style.setProperty('--reveal-delay', `${index * 60}ms`);
     });
-  }
-
-  if (hasGsap && !prefersReducedMotion) {
-    const splitTargets = document.querySelectorAll('.experience-copy h2, .section-heading h2, .tournament-head h2, .booking h2, .nosotros-heading h2');
-    splitTargets.forEach((heading) => {
-      splitWords(heading);
-      const words = heading.querySelectorAll('.split-word > span');
-      gsap.fromTo(words, { yPercent: 115, rotate: 3 }, { yPercent: 0, rotate: 0, duration: 1.1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: heading, start: 'top 86%', once: true }, onComplete: () => gsap.set(words, { transform: 'none' }) });
+    document.addEventListener('focusin', (event) => {
+      const element = event.target.closest('.scroll-reveal');
+      if (!element) return;
+      element.classList.add('is-revealed');
+      observer.unobserve(element);
     });
-
-    const heroStamp = document.querySelector('.hero-stamp');
-    if (heroStamp && getComputedStyle(heroStamp).display !== 'none') gsap.to(heroStamp, { yPercent: -60, rotate: -6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
-
-    // Deeper parallax on section images.
-    document.querySelectorAll('.parallax-wrap').forEach((wrap) => {
-      const image = wrap.querySelector('.parallax-image');
-      gsap.fromTo(image, { yPercent: -18, scale: 1.18 }, { yPercent: 14, scale: 1.02, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1 } });
-    });
-
-    // Nosotros: entrada sutil con fade-up, sin rotaciones.
-    gsap.fromTo('.nosotros-hero-image', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros', start: 'top 70%', once: true } });
-    gsap.fromTo('.nosotros-content > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros-content', start: 'top 78%', once: true } });
-    gsap.fromTo('.nosotros-thumb', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .65, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros-gallery', start: 'top 88%', once: true } });
-    gsap.fromTo('.experience-background img', { scale: 1.04, opacity: .7 }, { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.experience', start: 'top 75%', once: true } });
-
-    gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
-    gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 45, rotateY: index % 2 ? 4 : -4, opacity: 0, duration: .8, delay: (index % 4) * .08, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 92%', once: true } }));
-    gsap.utils.toArray('main .section-label').forEach((label) => gsap.from(label, { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: label, start: 'top 90%', once: true } }));
-    gsap.fromTo('.booking .location-address, .booking .location-map, .booking .location-actions, .booking .location-directions', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .75, stagger: .12, ease: 'power3.out', scrollTrigger: { trigger: '.booking', start: 'top 78%', once: true } });
-    gsap.fromTo('.site-footer > *', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .7, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.site-footer', start: 'top 90%', once: true } });
-
   }
 
   const carousel = document.querySelector('.depth-carousel');
