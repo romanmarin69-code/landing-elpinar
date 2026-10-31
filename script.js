@@ -132,10 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Nosotros: entrada sutil con fade-up, sin rotaciones.
     gsap.fromTo('.nosotros-hero-image', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros', start: 'top 70%', once: true } });
     gsap.fromTo('.nosotros-content > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros-content', start: 'top 78%', once: true } });
+    gsap.fromTo('.nosotros-thumb', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .65, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.nosotros-gallery', start: 'top 88%', once: true } });
+    gsap.fromTo('.experience-background img', { scale: 1.04, opacity: .7 }, { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.experience', start: 'top 75%', once: true } });
 
     gsap.utils.toArray('.reveal-up').forEach((element) => gsap.from(element, { y: 70, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 82%', once: true } }));
     gsap.utils.toArray('.feature-list > div, .tournament-row:not(.tournament-row--head)').forEach((item, index) => gsap.from(item, { y: 45, rotateY: index % 2 ? 4 : -4, opacity: 0, duration: .8, delay: (index % 4) * .08, ease: 'expo.out', scrollTrigger: { trigger: item, start: 'top 92%', once: true } }));
-    gsap.from('.section-label', { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '.section-label', start: 'top 90%', once: true } });
+    gsap.utils.toArray('main .section-label').forEach((label) => gsap.from(label, { opacity: 0, x: -18, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: label, start: 'top 90%', once: true } }));
+    gsap.fromTo('.booking .location-address, .booking .location-map, .booking .location-actions, .booking .location-directions', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .75, stagger: .12, ease: 'power3.out', scrollTrigger: { trigger: '.booking', start: 'top 78%', once: true } });
+    gsap.fromTo('.site-footer > *', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .7, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.site-footer', start: 'top 90%', once: true } });
 
   }
 
